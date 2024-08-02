@@ -1,2 +1,21 @@
+# Williams Adolfo Vega Montenegro - williamsv1697@gmail.com
+
+![BarberiaPro Logo compressed](https://github.com/user-attachments/assets/db11b57e-17bd-420e-a0ea-2e025f88698f)
+> Imagen generada con IA
+
 # BarberPro-API
-Aplicación Spring Boot que proporciona una API REST para gestionar los servicios de una barbería pro.
+Esta es una aplicación Spring Boot que proporciona una API REST para la gestión de servicios de barbería.
+
+## Requisitos Previos
+
+- Java 21
+- Maven
+- Docker (opcional)
+
+## Infraestructura del Proyecto
+
+- Base de datos: 
+- Versión de Java: 21
+- Framework: Spring Boot 3.3.2
+- Herramienta de construcción: Maven
+- Estructura del proyecto: 

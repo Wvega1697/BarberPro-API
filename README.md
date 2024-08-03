@@ -14,8 +14,47 @@ Esta es una aplicación Spring Boot que proporciona una API REST para la gestió
 
 ## Infraestructura del Proyecto
 
-- Base de datos: 
+- Base de datos: Firebase
 - Versión de Java: 21
 - Framework: Spring Boot 3.3.2
 - Herramienta de construcción: Maven
-- Estructura del proyecto: 
+
+## Estructura de Archivos
+
+El proyecto sigue la siguiente estructura de archivos:
+
+```
+barberia-api/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── wvega/
+│   │   │           └── barberproapi/
+│   │   │               ├── controller/
+│   │   │               │   └── ProductController.java
+│   │   │               ├── repository/
+│   │   │               │   └── FireBaseInitializer.java
+│   │   │               ├── model/
+│   │   │               │   └── ListData.java
+│   │   │               │   └── ProductDto.java
+│   │   │               ├── service/
+│   │   │               │   ├── ProductService.java
+│   │   │               ├── utils/
+│   │   │               │   ├── Constants.java
+│   │   │               │   └── ProductUtils.java
+│   │   │               │   └── ResponseWS.java
+│   │   │               └── BarberProApiApplication.java
+│   │   └── resources/
+│   │       ├── application.properties
+│   └── test/
+│       └── java/
+│           └── com/
+│               └── wvega/
+│                   └── barberproapi/
+│                       └── service/
+│                           └── BarberProApiApplicationTests.java
+├── pom.xml
+└── README.md
+```
+

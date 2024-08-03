@@ -11,10 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.wvega.barberproapi.utils.Constants.*;
 import static com.wvega.barberproapi.utils.ProductUtils.invalidObject;
@@ -153,13 +150,64 @@ public class ProductService {
 
             return !documentSnapshot.exists()
                     ? response.failResponse("Product not found", id)
-                    : response.successResponse("Product found",  ProductDto.fromMap(documentSnapshot.getData()));
+                    : response.successResponse("Product found",  ProductDto.fromMap(Objects.requireNonNull(documentSnapshot.getData())));
 
         } catch (Exception e) {
             Thread.currentThread().interrupt();
             return response.errorResponse("Error retrieving product: " + e.getMessage());
         }
 
+    }
+
+    public ResponseWS searchByFields(Map<String, Object> fields) {
+        ResponseWS response = new ResponseWS();
+        ListData listData = new ListData();
+
+        if (fields.isEmpty()) {
+            return response.failResponse("No fields to search", fields);
+        }
+
+        try {
+            Query query = productUtils.getProductsCollection();
+
+            if (fields.containsKey(NAME)) {
+                query.whereEqualTo(NAME, fields.get(NAME));
+            }
+            if (fields.containsKey(PRICE)) {
+                query.whereEqualTo(PRICE, fields.get(PRICE));
+            }
+            if (fields.containsKey(DURATION_MINUTES)) {
+                query.whereEqualTo(DURATION_MINUTES, fields.get(DURATION_MINUTES));
+            }
+            if (fields.containsKey(CATEGORY)) {
+                query.whereEqualTo(CATEGORY, fields.get(CATEGORY));
+            }
+            if (fields.containsKey(DESCRIPTION)) {
+                query.whereEqualTo(DESCRIPTION, fields.get(DESCRIPTION));
+            }
+
+            ApiFuture<QuerySnapshot> queryFuture = query.get();
+            QuerySnapshot querySnapshot = queryFuture.get();
+            List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+
+            List<Object> products = new ArrayList<>();
+            for (QueryDocumentSnapshot document : documents) {
+                products.add(ProductDto.fromMap(document.getData()));
+            }
+
+            listData.setPage(0);
+            listData.setSize(products.size());
+            listData.setTotal(products.size());
+            listData.setData(products);
+
+            return products.isEmpty()
+                    ? response.failResponse("No products retrieved", listData)
+                    : response.successResponse("Products retrieved successfully", listData);
+
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
+            return response.errorResponse("Error retrieving product: " + e.getMessage());
+        }
     }
 
 }

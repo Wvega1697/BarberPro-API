@@ -4,11 +4,8 @@ import com.wvega.barberproapi.service.ProductService;
 import com.wvega.barberproapi.utils.ResponseWS;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -51,10 +48,10 @@ public class ProductController {
         return productService.search(id);
     }
 
-    @GetMapping("/search")
-    public List<Object> getProductByName(@RequestParam String name) {
+    @PostMapping("/search")
+    public ResponseWS getProductsByFields(@RequestBody Map<String, Object> fields) {
         log.info("searchProducts");
-        return Collections.emptyList();
+        return productService.searchByFields(fields);
     }
 
 }

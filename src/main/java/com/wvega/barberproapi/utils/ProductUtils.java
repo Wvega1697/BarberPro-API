@@ -1,5 +1,8 @@
 package com.wvega.barberproapi.utils;
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.AggregateQuery;
+import com.google.cloud.firestore.AggregateQuerySnapshot;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.Firestore;
 import com.wvega.barberproapi.database.FireBaseInitializer;
@@ -30,10 +33,6 @@ public class ProductUtils {
         return products;
     }
 
-    public Firestore getFireStore() {
-        return fireBase.getFireStore();
-    }
-
     public static boolean invalidObject(Map<String, Object> objectHashMap) {
 
         if (objectHashMap.isEmpty()) {
@@ -60,5 +59,15 @@ public class ProductUtils {
         return false;
     }
 
+    public long countDocuments(String collectionName) {
+        try {
+            AggregateQuery countQuery = fireBase.getFireStore().collection(collectionName).count();
+            ApiFuture<AggregateQuerySnapshot> queryFuture = countQuery.get();
+            return queryFuture.get().getCount();
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
+            return 0L;
+        }
+    }
 
 }

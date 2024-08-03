@@ -42,13 +42,13 @@ public class ProductController {
                                      @RequestParam(required = false) Integer size,
                                      @RequestParam(required = false) String orderBy) {
         log.info("getAllProducts");
-        return productService.getAllProducts(page, size, orderBy);
+        return productService.searchAll(page, size, orderBy);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getProductById(@PathVariable String id) {
+    public ResponseWS getProductById(@PathVariable String id) {
         log.info("getProductById");
-        return null;
+        return productService.search(id);
     }
 
     @GetMapping("/search")

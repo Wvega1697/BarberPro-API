@@ -104,7 +104,7 @@ public class ProductService {
         }
     }
 
-    public ResponseWS getAllProducts(Integer page, Integer size, String orderBy) {
+    public ResponseWS searchAll(Integer page, Integer size, String orderBy) {
         ResponseWS response = new ResponseWS();
         ListData listData = new ListData();
 
@@ -113,8 +113,7 @@ public class ProductService {
         orderBy = isEmpty(orderBy) ? NAME : orderBy;
 
         try {
-            Firestore firestore = productUtils.getFireStore();
-            ApiFuture<QuerySnapshot> queryFuture = firestore.collection(PRODUCTS_COLLECTION)
+            ApiFuture<QuerySnapshot> queryFuture = productUtils.getProductsCollection()
                     .orderBy(orderBy)
                     .offset((page) * size)
                     .limit(size)
@@ -130,7 +129,7 @@ public class ProductService {
 
             listData.setPage(page);
             listData.setSize(products.size());
-            listData.setTotal(countDocuments(PRODUCTS_COLLECTION));
+            listData.setTotal(productUtils.countDocuments(PRODUCTS_COLLECTION));
             listData.setData(products);
 
             return products.isEmpty()
@@ -144,16 +143,23 @@ public class ProductService {
         }
     }
 
-    private long countDocuments(String collectionName) {
+    public ResponseWS search(String id) {
+        ResponseWS response = new ResponseWS();
+
         try {
-            AggregateQuery countQuery = productUtils.getFireStore().collection(collectionName).count();
-            ApiFuture<AggregateQuerySnapshot> queryFuture = countQuery.get();
-            return queryFuture.get().getCount();
+            DocumentReference documentReference = productUtils.getProductsCollection().document(id);
+            ApiFuture<DocumentSnapshot> documentFuture = documentReference.get();
+            DocumentSnapshot documentSnapshot = documentFuture.get();
+
+            return !documentSnapshot.exists()
+                    ? response.failResponse("Product not found", id)
+                    : response.successResponse("Product found",  ProductDto.fromMap(documentSnapshot.getData()));
+
         } catch (Exception e) {
-            log.error(e.getMessage());
             Thread.currentThread().interrupt();
-            return 0L;
+            return response.errorResponse("Error retrieving product: " + e.getMessage());
         }
+
     }
 
 }

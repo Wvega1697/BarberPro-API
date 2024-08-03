@@ -1,6 +1,7 @@
 package com.wvega.barberproapi.utils;
 
 import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.Firestore;
 import com.wvega.barberproapi.database.FireBaseInitializer;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,10 @@ public class ProductUtils {
         }
 
         return products;
+    }
+
+    public Firestore getFireStore() {
+        return fireBase.getFireStore();
     }
 
     public static boolean invalidObject(Map<String, Object> objectHashMap) {

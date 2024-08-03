@@ -38,9 +38,11 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Object> getAllProducts() {
+    public ResponseWS getAllProducts(@RequestParam(required = false) Integer page,
+                                     @RequestParam(required = false) Integer size,
+                                     @RequestParam(required = false) String orderBy) {
         log.info("getAllProducts");
-        return Collections.emptyList();
+        return productService.getAllProducts(page, size, orderBy);
     }
 
     @GetMapping("/{id}")

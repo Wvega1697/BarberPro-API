@@ -11,4 +11,5 @@ public class Constants {
 
     //Firebase
     public static final String PRODUCTS_COLLECTION = "Products";
+    public static final int DEFAULT_SIZE = 20;
 }

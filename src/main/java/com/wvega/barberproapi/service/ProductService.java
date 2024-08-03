@@ -1,22 +1,24 @@
 package com.wvega.barberproapi.service;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
+import com.wvega.barberproapi.model.ListData;
 import com.wvega.barberproapi.model.ProductDto;
 import com.wvega.barberproapi.utils.ProductUtils;
 import com.wvega.barberproapi.utils.ResponseWS;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.wvega.barberproapi.utils.Constants.*;
 import static com.wvega.barberproapi.utils.ProductUtils.invalidObject;
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Slf4j
 @Service
@@ -38,7 +40,7 @@ public class ProductService {
             ApiFuture<WriteResult> writeResultApiFuture = documentReference.create(productDto);
             WriteResult result = writeResultApiFuture.get();
 
-            return ObjectUtils.isEmpty(result)
+            return isEmpty(result)
                     ? response.failResponse("Product not created", productDto)
                     : response.successResponse("Product created successfully", documentReference.getId());
 
@@ -74,7 +76,7 @@ public class ProductService {
             ApiFuture<WriteResult> writeResultApiFuture = documentReference.update(updates);
             WriteResult result = writeResultApiFuture.get();
 
-            return ObjectUtils.isEmpty(result)
+            return isEmpty(result)
                     ? response.failResponse("Product not updated", id)
                     : response.successResponse("Product updated successfully", id);
 
@@ -92,13 +94,65 @@ public class ProductService {
             ApiFuture<WriteResult> writeResultApiFuture = documentReference.delete();
             WriteResult result = writeResultApiFuture.get();
 
-            return ObjectUtils.isEmpty(result)
+            return isEmpty(result)
                     ? response.failResponse("Product not deleted", id)
                     : response.successResponse("Product deleted successfully", id);
 
         } catch (Exception e) {
             Thread.currentThread().interrupt();
             return response.errorResponse("Error deleting product: " + e.getMessage());
+        }
+    }
+
+    public ResponseWS getAllProducts(Integer page, Integer size, String orderBy) {
+        ResponseWS response = new ResponseWS();
+        ListData listData = new ListData();
+
+        page = isEmpty(page) ? 0 : page;
+        size = isEmpty(size) ? DEFAULT_SIZE : size;
+        orderBy = isEmpty(orderBy) ? NAME : orderBy;
+
+        try {
+            Firestore firestore = productUtils.getFireStore();
+            ApiFuture<QuerySnapshot> queryFuture = firestore.collection(PRODUCTS_COLLECTION)
+                    .orderBy(orderBy)
+                    .offset((page) * size)
+                    .limit(size)
+                    .get();
+
+            QuerySnapshot querySnapshot = queryFuture.get();
+            List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+
+            List<Object> products = new ArrayList<>();
+            for (QueryDocumentSnapshot document : documents) {
+                products.add(ProductDto.fromMap(document.getData()));
+            }
+
+            listData.setPage(page);
+            listData.setSize(products.size());
+            listData.setTotal(countDocuments(PRODUCTS_COLLECTION));
+            listData.setData(products);
+
+            return products.isEmpty()
+                    ? response.failResponse("No products retrieved", listData)
+                    : response.successResponse("Products retrieved successfully", listData);
+
+
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
+            return response.errorResponse("Error retrieving products: " + e.getMessage());
+        }
+    }
+
+    private long countDocuments(String collectionName) {
+        try {
+            AggregateQuery countQuery = productUtils.getFireStore().collection(collectionName).count();
+            ApiFuture<AggregateQuerySnapshot> queryFuture = countQuery.get();
+            return queryFuture.get().getCount();
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            Thread.currentThread().interrupt();
+            return 0L;
         }
     }
 

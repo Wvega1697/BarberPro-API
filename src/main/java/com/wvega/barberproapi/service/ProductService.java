@@ -84,4 +84,22 @@ public class ProductService {
         }
     }
 
+    public ResponseWS delete(String id) {
+        ResponseWS response = new ResponseWS();
+
+        try {
+            DocumentReference documentReference = productUtils.getProductsCollection().document(id);
+            ApiFuture<WriteResult> writeResultApiFuture = documentReference.delete();
+            WriteResult result = writeResultApiFuture.get();
+
+            return ObjectUtils.isEmpty(result)
+                    ? response.failResponse("Product not deleted", id)
+                    : response.successResponse("Product deleted successfully", id);
+
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
+            return response.errorResponse("Error deleting product: " + e.getMessage());
+        }
+    }
+
 }

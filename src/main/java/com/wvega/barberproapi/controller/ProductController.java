@@ -32,9 +32,9 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable String id) {
+    public ResponseWS deleteProduct(@PathVariable String id) {
         log.info("deleteProduct");
-        return null;
+        return productService.delete(id);
     }
 
     @GetMapping

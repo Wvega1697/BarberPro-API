@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,13 +26,13 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateProduct(@PathVariable Long id, @RequestBody Object product) {
+    public ResponseWS updateProduct(@PathVariable String id, @RequestBody Map<String, Object> product) {
         log.info("updateProduct");
-        return null;
+        return productService.modify(id, product);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable String id) {
         log.info("deleteProduct");
         return null;
     }
@@ -45,7 +44,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getProductById(@PathVariable Long id) {
+    public ResponseEntity<Object> getProductById(@PathVariable String id) {
         log.info("getProductById");
         return null;
     }

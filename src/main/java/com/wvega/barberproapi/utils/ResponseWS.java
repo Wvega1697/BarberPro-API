@@ -21,6 +21,14 @@ public class ResponseWS {
         return this;
     }
 
+    public ResponseWS successResponse(String message, Object data) {
+        this.success = true;
+        this.message = message;
+        this.data = data;
+        this.code = 200;
+        return this;
+    }
+
     public ResponseWS errorResponse(String message) {
         this.success = false;
         this.message = message;

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.Map;
 
+import static com.wvega.barberproapi.utils.Constants.*;
 import static java.util.Arrays.stream;
 
 @Service
@@ -22,7 +23,7 @@ public class ProductUtils {
     public CollectionReference getProductsCollection() {
 
         if (products == null) {
-            products = fireBase.getFireStore().collection("Products");
+            products = fireBase.getFireStore().collection(PRODUCTS_COLLECTION);
         }
 
         return products;
@@ -34,7 +35,7 @@ public class ProductUtils {
             return true;
         }
 
-        String[] requiredFields = {"name", "price", "quantity", "category", "description"};
+        String[] requiredFields = {NAME, PRICE, DURATION_MINUTES, CATEGORY, DESCRIPTION};
 
         boolean hasEmptyFields = stream(requiredFields).anyMatch(field -> !objectHashMap.containsKey(field) || objectHashMap.get(field).toString().isEmpty());
 
@@ -43,8 +44,8 @@ public class ProductUtils {
         }
 
         try {
-            new BigDecimal(objectHashMap.get("price").toString());
-            Integer.parseInt(objectHashMap.get("quantity").toString());
+            new BigDecimal(objectHashMap.get(PRICE).toString());
+            Integer.parseInt(objectHashMap.get(DURATION_MINUTES).toString());
 
         } catch (NumberFormatException e) {
             return true;
@@ -53,4 +54,6 @@ public class ProductUtils {
 
         return false;
     }
+
+
 }

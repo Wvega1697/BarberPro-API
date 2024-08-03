@@ -13,14 +13,6 @@ public class ResponseWS {
     private String message;
     private Object data;
 
-    public ResponseWS successResponse(Object data) {
-        this.success = true;
-        this.message = "Success";
-        this.data = data;
-        this.code = 200;
-        return this;
-    }
-
     public ResponseWS successResponse(String message, Object data) {
         this.success = true;
         this.message = message;

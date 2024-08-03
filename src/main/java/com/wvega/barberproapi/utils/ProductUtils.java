@@ -4,8 +4,7 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.AggregateQuery;
 import com.google.cloud.firestore.AggregateQuerySnapshot;
 import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.Firestore;
-import com.wvega.barberproapi.database.FireBaseInitializer;
+import com.wvega.barberproapi.repository.FireBaseInitializer;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

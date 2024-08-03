@@ -1,4 +1,4 @@
-package com.wvega.barberproapi.database;
+package com.wvega.barberproapi.repository;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;

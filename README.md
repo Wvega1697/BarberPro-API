@@ -33,13 +33,16 @@ barberia-api/
 │   │   │           └── barberproapi/
 │   │   │               ├── controller/
 │   │   │               │   └── ProductController.java
+│   │   │               │   └── StatsController.java
 │   │   │               ├── repository/
 │   │   │               │   └── FireBaseInitializer.java
 │   │   │               ├── model/
 │   │   │               │   └── ListData.java
 │   │   │               │   └── ProductDto.java
+│   │   │               │   └── StatDto.java
 │   │   │               ├── service/
 │   │   │               │   ├── ProductService.java
+│   │   │               │   ├── StatsService.java
 │   │   │               ├── utils/
 │   │   │               │   ├── Constants.java
 │   │   │               │   └── ProductUtils.java

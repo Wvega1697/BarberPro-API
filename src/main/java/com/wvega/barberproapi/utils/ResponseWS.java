@@ -35,4 +35,5 @@ public class ResponseWS {
         this.code = 400;
         return this;
     }
+
 }

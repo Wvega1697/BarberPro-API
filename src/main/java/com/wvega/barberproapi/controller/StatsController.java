@@ -4,12 +4,14 @@ import com.wvega.barberproapi.service.StatsService;
 import com.wvega.barberproapi.utils.ResponseWS;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import static com.wvega.barberproapi.utils.Constants.*;
 
 @Slf4j
 @RestController
+@PreAuthorize("hasRole('ADMIN')")
 @AllArgsConstructor
 @RequestMapping("/api/stats")
 public class StatsController {
@@ -52,6 +54,5 @@ public class StatsController {
     public ResponseWS getAverageExecutionTimeByMethod() {
         return statsService.getAverageExecutionTimeByMethod();
     }
+
 }
-
-

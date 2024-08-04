@@ -36,6 +36,8 @@ barberia-api/
 │   │   │               │   └── StatsController.java
 │   │   │               ├── repository/
 │   │   │               │   └── FireBaseInitializer.java
+│   │   │               ├── security/
+│   │   │               │   └── SecurityConfig.java
 │   │   │               ├── model/
 │   │   │               │   └── ListData.java
 │   │   │               │   └── ProductDto.java

@@ -134,3 +134,8 @@ barberia-api/
 ├── Dockerfile
 └── README.md
 ```
+## Colección de Postman
+
+Adjunto encontraras una colección de Postman, lista para exportar y que incluye todos los endpoints del API y con ejemplos.
+
+[BarberPro-API.postman_collection.rar](https://drive.google.com/file/d/1HGqcOjuiHZNI-_PR4h7ScJJ7TRazoDwn/view?usp=sharing)

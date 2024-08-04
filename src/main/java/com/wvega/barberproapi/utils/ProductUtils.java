@@ -17,7 +17,8 @@ import static java.util.Arrays.stream;
 public class ProductUtils {
 
     private final FireBaseInitializer fireBase;
-    private CollectionReference products;
+    private CollectionReference productsCollection;
+    private CollectionReference statsCollection;
 
     public ProductUtils(FireBaseInitializer fireBase) {
         this.fireBase = fireBase;
@@ -25,11 +26,20 @@ public class ProductUtils {
 
     public CollectionReference getProductsCollection() {
 
-        if (products == null) {
-            products = fireBase.getFireStore().collection(PRODUCTS_COLLECTION);
+        if (productsCollection == null) {
+            productsCollection = fireBase.getFireStore().collection(PRODUCTS_COLLECTION);
         }
 
-        return products;
+        return productsCollection;
+    }
+
+    public CollectionReference getStatsCollection() {
+
+        if (statsCollection == null) {
+            statsCollection = fireBase.getFireStore().collection(STATS_COLLECTION);
+        }
+
+        return statsCollection;
     }
 
     public static boolean invalidObject(Map<String, Object> objectHashMap) {

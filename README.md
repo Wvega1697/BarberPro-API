@@ -62,6 +62,7 @@ barberia-api/
 │                       │   └── StatsServiceTest.java
 │                       └── BarberProApiApplicationTests.java
 ├── pom.xml
+├── Dockerfile
 └── README.md
 ```
 

@@ -32,22 +32,22 @@ barberia-api/
 │   │   │       └── wvega/
 │   │   │           └── barberproapi/
 │   │   │               ├── controller/
-│   │   │               │   └── ProductController.java
+│   │   │               │   ├── ProductController.java
 │   │   │               │   └── StatsController.java
 │   │   │               ├── repository/
 │   │   │               │   └── FireBaseInitializer.java
 │   │   │               ├── security/
 │   │   │               │   └── SecurityConfig.java
 │   │   │               ├── model/
-│   │   │               │   └── ListData.java
-│   │   │               │   └── ProductDto.java
+│   │   │               │   ├── ListData.java
+│   │   │               │   ├── ProductDto.java
 │   │   │               │   └── StatDto.java
 │   │   │               ├── service/
 │   │   │               │   ├── ProductService.java
-│   │   │               │   ├── StatsService.java
+│   │   │               │   └── StatsService.java
 │   │   │               ├── utils/
 │   │   │               │   ├── Constants.java
-│   │   │               │   └── ProductUtils.java
+│   │   │               │   ├── ProductUtils.java
 │   │   │               │   └── ResponseWS.java
 │   │   │               └── BarberProApiApplication.java
 │   │   └── resources/
@@ -57,8 +57,10 @@ barberia-api/
 │           └── com/
 │               └── wvega/
 │                   └── barberproapi/
-│                       └── service/
-│                           └── BarberProApiApplicationTests.java
+│                       ├── service/
+│                       │   ├── ProductServiceTest.java
+│                       │   └── StatsServiceTest.java
+│                       └── BarberProApiApplicationTests.java
 ├── pom.xml
 └── README.md
 ```

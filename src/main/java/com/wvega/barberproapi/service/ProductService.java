@@ -41,9 +41,8 @@ public class ProductService {
             ProductDto productDto = ProductDto.fromMap(product);
             DocumentReference documentReference = productUtils.getProductsCollection().document();
             ApiFuture<WriteResult> writeResultApiFuture = documentReference.create(productDto);
-            WriteResult result = writeResultApiFuture.get();
 
-            if (isEmpty(result)) {
+            if (isEmpty(writeResultApiFuture.get())) {
                 return response.failResponse("Product not created", productDto);
             }
 
@@ -122,9 +121,8 @@ public class ProductService {
         try {
             DocumentReference documentReference = productUtils.getProductsCollection().document(id);
             ApiFuture<WriteResult> writeResultApiFuture = documentReference.delete();
-            WriteResult result = writeResultApiFuture.get();
 
-            if (isEmpty(result)) {
+            if (isEmpty(writeResultApiFuture.get())) {
                 return response.failResponse("Product not deleted", id);
             }
 

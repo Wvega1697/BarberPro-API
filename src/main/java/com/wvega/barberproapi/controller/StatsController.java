@@ -103,5 +103,5 @@ public class StatsController {
     public ResponseWS getAverageExecutionTimeByMethod() {
         return statsService.getAverageExecutionTimeByMethod();
     }
-    
+
 }

@@ -14,7 +14,7 @@ jobs:
           java-version: '21'
           distribution: 'adopt'
       - name: Create Firebase credentials file
-        run: echo '${{ secrets.FIREBASE_CREDENTIALS }}' > firebase-credentials.json
+        run: echo '${{ secrets.FIREBASE_CREDENTIALS }}' > src/main/resources/firebase-credentials.json
       - name: Build with Maven
         run: mvn clean install
       - name: Deploy to Heroku

@@ -8,9 +8,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -23,12 +21,7 @@ public class FireBaseInitializer {
     @PostConstruct
     private void initFirestore() throws IOException {
         InputStream serviceAccount;
-        String firebaseCredentials = System.getenv("FIREBASE_CREDENTIALS");
-        if (!ObjectUtils.isEmpty(firebaseCredentials)) {
-            serviceAccount = new ByteArrayInputStream(firebaseCredentials.getBytes());
-        } else {
-            serviceAccount = getClass().getClassLoader().getResourceAsStream("private-key-firestore.json");
-        }
+        serviceAccount = getClass().getClassLoader().getResourceAsStream("./firebase-credentials.json");
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))

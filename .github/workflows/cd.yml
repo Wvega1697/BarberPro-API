@@ -13,10 +13,8 @@ jobs:
         with:
           java-version: '21'
           distribution: 'adopt'
-      - name: Set FIREBASE_CREDENTIALS Secret
-        run: echo "FIREBASE_CREDENTIALS=$FIREBASE_CREDENTIALS" >> $GITHUB_ENV
-        env:
-          FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
+      - name: Create Firebase credentials file
+        run: echo '${{ secrets.FIREBASE_CREDENTIALS }}' > firebase-credentials.json
       - name: Build with Maven
         run: mvn clean install
       - name: Deploy to Heroku

@@ -43,10 +43,6 @@ Esta es una aplicación Spring Boot que proporciona una API REST para la gestió
    mvn spring-boot:run
    ```
 
-Puedes acceder como administrador usando la URL 'http://localhost:1697/api/stats'
-
-(User: admin | Password: admin) 
-
 ### Usando Docker
 
 1. Construir la imagen de Docker:
@@ -58,11 +54,18 @@ Puedes acceder como administrador usando la URL 'http://localhost:1697/api/stats
    ```
    docker run -p 1697:1697 barberpro-api:latest
    ```
-Puedes acceder como administrador usando la URL 'http://localhost:1697/api/stats'
-
-(User: admin | Password: admin)
 
 ## API Endpoints
+
+Puedes acceder usando la URL 'http://localhost:1697/api/products'
+
+Usuario normal
+
+| User: wvega | Password: password |
+
+Usuario administrador
+
+| User: admin | Password: admin |
 
 ### Productos
 
@@ -75,7 +78,7 @@ Puedes acceder como administrador usando la URL 'http://localhost:1697/api/stats
 | GET    | /api/products/{id} | Obtener un producto por ID |
 | POST   | /api/products/search | Buscar productos por múltiples campos |
 
-### Estadísticas
+### Estadísticas (Solo administradores)
 
 | Método | Endpoint | Descripción |
 | ------ | -------- | ----------- |
@@ -94,6 +97,10 @@ El proyecto utiliza la siguiente estructura de archivos:
 
 ```
 barberia-api/
+├── .github/
+│   ├── workflows/
+│   │   ├── cd.yml
+│   │   └── ci.yml
 ├── src/
 │   ├── main/
 │   │   ├── java/
@@ -134,6 +141,8 @@ barberia-api/
 │                       └── BarberProApiApplicationTests.java
 ├── pom.xml
 ├── Dockerfile
+├── system.properties
+├── Procfile
 └── README.md
 ```
 ## Colección de Postman

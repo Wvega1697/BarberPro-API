@@ -57,16 +57,6 @@ Esta es una aplicación Spring Boot que proporciona una API REST para la gestió
 
 ## API Endpoints
 
-Puedes acceder usando la URL 'http://localhost:1697/api/products'
-
-Usuario normal
-
-| User: wvega | Password: password |
-
-Usuario administrador
-
-| User: admin | Password: admin |
-
 ### Productos
 
 | Método | Endpoint | Descripción |
@@ -90,6 +80,15 @@ Usuario administrador
 | GET    | /api/stats/categories | Obtener conteos de productos agrupados por categoría |
 | GET    | /api/stats/averages | Obtener el tiempo promedio de ejecución agrupado por nombre de método |
 
+## Puedes acceder usando la URL 'http://localhost:1697/swagger-ui/index.html'
+
+### Usuario normal
+
+| User: wvega | Password: password |
+
+### Usuario administrador
+
+| User: admin | Password: admin |
 
 ## Estructura de Archivos
 
@@ -150,3 +149,8 @@ barberia-api/
 Adjunto encontraras una colección de Postman, lista para exportar y que incluye todos los endpoints del API y con ejemplos.
 
 [BarberPro-API.postman_collection.rar](https://drive.google.com/file/d/1HGqcOjuiHZNI-_PR4h7ScJJ7TRazoDwn/view?usp=sharing)
+
+## Desplegado en Heroku
+
+![image](https://github.com/user-attachments/assets/7eda8005-c0dd-43cc-a2e1-9c53ee7e3eb0)
+

@@ -9,8 +9,9 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.Base64;
 
 @Service
 public class FireBaseInitializer {
@@ -20,17 +21,18 @@ public class FireBaseInitializer {
 
     @PostConstruct
     private void initFirestore() throws IOException {
-        InputStream serviceAccount;
-        serviceAccount = getClass().getClassLoader().getResourceAsStream("./firebase-credentials.json");
+        String base64Credentials = System.getenv("FIREBASE_CREDENTIALS_BASE64");
+
+        byte[] decodedBytes = Base64.getDecoder().decode(base64Credentials);
+        GoogleCredentials credentials = GoogleCredentials
+                .fromStream(new ByteArrayInputStream(decodedBytes));
 
         FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                .setCredentials(credentials)
                 .setDatabaseUrl(firebaseUrl)
                 .build();
 
-        if (FirebaseApp.getApps().isEmpty()) {
-            FirebaseApp.initializeApp(options);
-        }
+        FirebaseApp.initializeApp(options);
     }
 
     public Firestore getFireStore() {

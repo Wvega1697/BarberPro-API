@@ -15,8 +15,8 @@ jobs:
         with:
           java-version: '21'
           distribution: 'adopt'
-      - name: Create Firebase credentials file
-        run: echo '${{ secrets.FIREBASE_CREDENTIALS }}' > src/main/resources/firebase-credentials.json
+      - name: Set environment variable
+        run: echo "FIREBASE_CREDENTIALS_BASE64=${{ secrets.FIREBASE_CREDENTIALS_BASE64 }}" >> $GITHUB_ENV
       - name: Build with Maven
         run: mvn clean install
       - name: Run tests

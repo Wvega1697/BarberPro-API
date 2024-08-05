@@ -100,6 +100,8 @@ barberia-api/
 │   │   │   └── com/
 │   │   │       └── wvega/
 │   │   │           └── barberproapi/
+│   │   │               ├── configuration/
+│   │   │               │   └── OpenAPIConfig.java
 │   │   │               ├── controller/
 │   │   │               │   ├── ProductController.java
 │   │   │               │   └── StatsController.java

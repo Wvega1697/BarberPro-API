@@ -59,4 +59,4 @@ hs_err_pid*
 replay_pid*
 /.idea
 
-private-key-firestore.json
+firebase-credentials.json

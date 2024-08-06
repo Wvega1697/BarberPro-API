@@ -17,7 +17,15 @@ Esta es una aplicación Spring Boot que proporciona una API REST para la gestió
 
 - Java 21
 - Maven
+- Credenciales de Firebase
 - Docker (opcional)
+
+### Importante
+
+Es necesario agregar a las variables de entorno "FIREBASE_CREDENTIALS_BASE64" que son las credenciales para conectarse a firebase.
+
+Puedes solicitarlas en el siguiente link:
+[FIREBASE_CREDENTIALS_BASE64.txt](https://drive.google.com/file/d/1jdwsdPfGxnArA8in7eJkA4rYlYvSvaIY/view?usp=sharing)
 
 ## Ejecutar el Proyecto
 
